@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Agenda</string>
     <string name="title_activity_mapas">mapas</string>
+    <string name="facebook_app_id">411133459330839</string>
+    <string name="fb_login_protocol_scheme">fb411133459330839</string>
 
 
 </resources>
