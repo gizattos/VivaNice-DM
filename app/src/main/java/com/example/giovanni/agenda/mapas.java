@@ -13,6 +13,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -22,22 +24,63 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
 
 public class mapas extends AppCompatActivity implements OnMapReadyCallback {
+
+    TextView demoValue;
+    FirebaseDatabase database;
+    FirebaseAuth auth;
+    DatabaseReference rootRef,demoRef;
+    TextView tipoValue;
 
     private GoogleMap mMap;
     LocationManager locationManager;
     public static final int MAP_PERMISSION_ACCESS_COURSE_LOCATION = 9999;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapas);
 
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = auth.getCurrentUser();
+        String uid = user.getUid();
+
+        DatabaseReference alunos = database.getReference("/Alunos");
+
+        demoValue = (TextView) findViewById(R.id.edtRecNome);
+        tipoValue = (TextView) findViewById(R.id.edtRecTipo);
+
+        //database reference pointing to root of database
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        //database reference pointing to demo node
+        demoRef = rootRef.child("demo");
+
+
+        FirebaseUser teste = auth.getCurrentUser();
+
+
+
+
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -51,7 +94,36 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
                         .setAction("Action", null).show();
             }
         });
+
+        alunos.child(user.getUid()).child("nome").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                demoValue.setText(snapshot.getValue().toString());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        alunos.child(user.getUid()).child("tipo").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                tipoValue.setText(snapshot.getValue().toString());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
+
     }
+
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -112,16 +184,14 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
         */
 
 
-
-
     private void getLastLocation() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if(lastKnownLocation !=null) {
+            if (lastKnownLocation != null) {
                 LatLng me = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(me).title("Eu estava aqui quando o anrdoid me localizou pela última vez!!!"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 10));
-            }else{
+            } else {
                 Toast.makeText(this, "Localização não encontrada", Toast.LENGTH_SHORT).show();
             }
         }
