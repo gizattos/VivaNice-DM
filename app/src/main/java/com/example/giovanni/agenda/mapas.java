@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
+import android.Manifest;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -79,6 +80,8 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
                 }
             };
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        } else {
+            Toast.makeText(getApplicationContext(), "Negado", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -89,7 +92,7 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
                     getLastLocation();
                     getLocation();
                 } else {
-                    //Permissão negada
+                    Toast.makeText(getApplicationContext(), "Negado", Toast.LENGTH_LONG).show();
                 }
                 return;
             }

@@ -50,6 +50,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         edtTipo = findViewById(R.id.edtTipo);
         edtIdentifica = findViewById(R.id.edtIdentifica);
         edtRegistro = findViewById(R.id.edtRegistro);
+       Button b5 = findViewById(R.id.button2);
 
 
         String[] sexo = new String[]{"Homem", "Mulher"};
@@ -82,6 +83,14 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                 auth.getInstance().signOut();
                 Intent i = new Intent(getApplicationContext(), ListaAlunosActivity.class);
                 startActivity(i);
+            }
+        });
+
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(TelaPrincipalActivity.this, mapas.class); // Intent it = new Intent(this, TelaPrincipalActivity.class); tive que coloacr a classe no primeiro this pq ela ta dentro do oncompletelistener
+                startActivity(it);
             }
         });
 
