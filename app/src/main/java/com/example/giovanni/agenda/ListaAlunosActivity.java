@@ -33,7 +33,7 @@ import static android.provider.ContactsContract.Intents.Insert.EMAIL;
 public class ListaAlunosActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    CallbackManager mCallbackManager = CallbackManager.Factory.create();
+    CallbackManager mCallbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +53,15 @@ public class ListaAlunosActivity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(ListaAlunosActivity.this, EsqueceSenha.class); // Intent it = new Intent(this, TelaPrincipalActivity.class); tive que coloacr a classe no primeiro this pq ela ta dentro do oncompletelistener
+                Intent it = new Intent(ListaAlunosActivity.this, EsqueceSenha.class);
                 startActivity(it);
             }
         });
 
-        // Initialize Facebook Login button
-
-        LoginButton loginButton = findViewById(R.id.login_button);
+        //botao do facebook
+        mCallbackManager = CallbackManager.Factory.create();
+        final LoginButton loginButton = findViewById(R.id.login_button);
+        loginButton.setReadPermissions(Arrays.asList(EMAIL));
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
 
@@ -77,25 +78,24 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
-
+                Toast.makeText(getApplicationContext(), "callback... error", Toast.LENGTH_LONG).show();
             }
+
 
         });
 
-//        if (user != null) {
-//            Intent it = new Intent(ListaAlunosActivity.this, TelaPrincipalActivity.class);
-//            startActivity(it);
-//        }
-
-
+        if (user != null) {
+            Intent it = new Intent(ListaAlunosActivity.this, TelaPrincipalActivity.class);
+            startActivity(it);
+        }
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent it) {
-        super.onActivityResult(requestCode, resultCode, it);
-
-        // Pass the activity result back to the Facebook SDK
-        mCallbackManager.onActivityResult(requestCode, resultCode, it);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
+
 
     private void handleFacebookAccessToken(AccessToken token) {
 
@@ -112,7 +112,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
                         } else {
                             // If sign in fails, display a message to the user.
-
+                            Toast.makeText(getApplicationContext(), "handle... error", Toast.LENGTH_LONG).show();
                         }
                         // ...
                     }
