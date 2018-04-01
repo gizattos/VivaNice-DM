@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +32,8 @@ public class TelaPrincipalActivity extends AppCompatActivity {
     Spinner edtSex;
     Spinner edtTipo;
     EditText edtRegistro;
+    TextView textView13;
+    TextView textView14;
 
     FirebaseDatabase database;
     FirebaseAuth auth;
@@ -50,6 +53,8 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         edtTipo = findViewById(R.id.edtTipo);
         edtIdentifica = findViewById(R.id.edtIdentifica);
         edtRegistro = findViewById(R.id.edtRegistro);
+        textView13 = findViewById(R.id.textView13);
+        textView14 = findViewById(R.id.textView14);
        Button b5 = findViewById(R.id.button2);
 
 
@@ -139,16 +144,19 @@ public class TelaPrincipalActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView,View selectedItemView, int position, long id) {
                 if ("Pessoa".equals(edtTipo.getSelectedItem().toString())) {
                     edtIdentifica.setVisibility(View.VISIBLE);
+                    textView13.setVisibility((View.VISIBLE));
                     edtRegistro.setVisibility(View.INVISIBLE);
+                    textView14.setVisibility((View.INVISIBLE));
                     edtRegistro.setText(" ");
-
-                    //     edtIdentifica.setHint("Coloque seu CPF");
+                    edtIdentifica.setHint("Coloque seu CPF");
 
                 } else if ("Ajudante".equals(edtTipo.getSelectedItem().toString())) {
                     edtRegistro.setVisibility(View.VISIBLE);
                     edtIdentifica.setVisibility(View.INVISIBLE);
+                    textView14.setVisibility((View.VISIBLE));
+                    textView13.setVisibility((View.INVISIBLE));
                     edtIdentifica.setText(" ");
-                    //edtIdentifica.setHint("Coloque seu cadastro médico");
+                    edtIdentifica.setHint("Coloque seu cadastro médico");
                 }}
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {

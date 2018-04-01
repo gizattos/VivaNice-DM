@@ -116,7 +116,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:background="@null"
-        android:text="Forgot your password?"
+        android:text="Esqueceu sua senha?"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
