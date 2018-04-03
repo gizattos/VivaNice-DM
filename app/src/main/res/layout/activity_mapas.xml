@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image_fundo"
     tools:context="com.example.giovanni.agenda.mapas">
 
     <android.support.design.widget.AppBarLayout

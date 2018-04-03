@@ -1,6 +1,8 @@
 package com.example.giovanni.agenda;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -25,6 +28,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Arrays;
 
@@ -41,11 +45,24 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_alunos);
         Button b = findViewById(R.id.btnLogin);
         Button b2 = findViewById(R.id.btn_forgot_password);
+        final AVLoadingIndicatorView progress = (AVLoadingIndicatorView) findViewById(R.id.avi);
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final ProgressDialog pd = new ProgressDialog(ListaAlunosActivity.this);
+                pd.setIndeterminate(true);
+                pd.setMessage("Carregando...");
+                pd.show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.setContentView(progress);
+                    }
+                }, 2000);
                 login();
             }
         });
@@ -107,6 +124,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = auth.getCurrentUser();
+
                             Intent it = new Intent(ListaAlunosActivity.this, TelaPrincipalActivity.class);
                             startActivity(it);
 
@@ -125,6 +143,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         EditText edtEmail = findViewById(R.id.edtEmail);
         EditText edtSenha = findViewById(R.id.edtSenha);
+
 
         if (!edtEmail.getText().toString().isEmpty() && !edtSenha.getText().toString().isEmpty()) {
             Task<AuthResult> processo = auth.signInWithEmailAndPassword(edtEmail.getText().toString(), edtSenha.getText().toString());

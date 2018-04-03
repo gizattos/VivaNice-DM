@@ -1,7 +1,9 @@
 package com.example.giovanni.agenda;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class TelaPrincipalActivity extends AppCompatActivity {
 
@@ -56,6 +59,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         textView13 = findViewById(R.id.textView13);
         textView14 = findViewById(R.id.textView14);
        Button b5 = findViewById(R.id.button2);
+        final AVLoadingIndicatorView progress = (AVLoadingIndicatorView) findViewById(R.id.avi);
 
 
         String[] sexo = new String[]{"Homem", "Mulher"};
@@ -76,6 +80,19 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
+                pd.setIndeterminate(true);
+                pd.setMessage("Carregando...");
+                pd.show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.setContentView(progress);
+                    }
+                }, 2000);
+
                 gravar();
             }
         });
@@ -84,6 +101,18 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
+                pd.setIndeterminate(true);
+                pd.setMessage("Carregando...");
+                pd.show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.setContentView(progress);
+                    }
+                }, 2000);
 
                 auth.getInstance().signOut();
                 Intent i = new Intent(getApplicationContext(), ListaAlunosActivity.class);
@@ -94,6 +123,19 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
+                pd.setIndeterminate(true);
+                pd.setMessage("Carregando...");
+                pd.show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.setContentView(progress);
+                    }
+                }, 2000);
+
                 Intent it = new Intent(getApplicationContext(), mapas.class); // Intent it = new Intent(this, TelaPrincipalActivity.class); tive que coloacr a classe no primeiro this pq ela ta dentro do oncompletelistener
                 startActivity(it);
             }
@@ -119,6 +161,19 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         capturedImageButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
+                pd.setIndeterminate(true);
+                pd.setMessage("Carregando...");
+                pd.show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.setContentView(progress);
+                    }
+                }, 2000);
+
                 Intent photoCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(photoCaptureIntent, requestCode);
             }
