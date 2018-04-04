@@ -3,6 +3,5 @@
     <string name="title_activity_mapas">mapas</string>
     <string name="facebook_app_id">411133459330839</string>
     <string name="fb_login_protocol_scheme">fb411133459330839</string>
-
-
+    <string name="server_client_id">406213962002-72t77un57u5vufb6q7a0s29lqpk9165b.apps.googleusercontent.com</string>
 </resources>
