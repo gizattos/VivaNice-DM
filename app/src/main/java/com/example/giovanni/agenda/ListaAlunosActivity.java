@@ -46,6 +46,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_alunos);
         Button b = findViewById(R.id.btnLogin);
         Button b2 = findViewById(R.id.btn_forgot_password);
+        Button b5 = findViewById(R.id.cadastro);
         final AVLoadingIndicatorView progress = (AVLoadingIndicatorView) findViewById(R.id.avi);
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
@@ -81,6 +82,16 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(ListaAlunosActivity.this, Cadastro.class);
+                startActivity(it);
+            }
+        });
+
+
 
         //botao do facebook
         mCallbackManager = CallbackManager.Factory.create();
