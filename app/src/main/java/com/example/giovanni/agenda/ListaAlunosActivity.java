@@ -38,7 +38,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     CallbackManager mCallbackManager;
-    ProgressDialog pd = new ProgressDialog(ListaAlunosActivity.this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -41,7 +41,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseAuth auth;
 
-    ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
+//    ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private final int requestCode = 20;
