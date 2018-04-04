@@ -41,6 +41,8 @@ public class TelaPrincipalActivity extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseAuth auth;
 
+    ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
+
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private final int requestCode = 20;
     private ImageView imageHolder;
@@ -60,6 +62,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         textView14 = findViewById(R.id.textView14);
        Button b5 = findViewById(R.id.button2);
         final AVLoadingIndicatorView progress = (AVLoadingIndicatorView) findViewById(R.id.avi);
+        ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
 
 
         String[] sexo = new String[]{"Homem", "Mulher"};
@@ -85,13 +88,17 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                 pd.setMessage("Carregando...");
                 pd.show();
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        pd.setContentView(progress);
+                        try{
+                            Thread.sleep(2000);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        pd.dismiss();
                     }
-                }, 2000);
+                });
 
                 gravar();
             }
@@ -106,13 +113,17 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                 pd.setMessage("Carregando...");
                 pd.show();
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        pd.setContentView(progress);
+                        try{
+                            Thread.sleep(2000);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        pd.dismiss();
                     }
-                }, 2000);
+                });
 
                 auth.getInstance().signOut();
                 Intent i = new Intent(getApplicationContext(), ListaAlunosActivity.class);
@@ -128,13 +139,17 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                 pd.setMessage("Carregando...");
                 pd.show();
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        pd.setContentView(progress);
+                        try{
+                            Thread.sleep(2000);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        pd.dismiss();
                     }
-                }, 2000);
+                });
 
                 Intent it = new Intent(getApplicationContext(), mapas.class); // Intent it = new Intent(this, TelaPrincipalActivity.class); tive que coloacr a classe no primeiro this pq ela ta dentro do oncompletelistener
                 startActivity(it);
@@ -166,13 +181,17 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                 pd.setMessage("Carregando...");
                 pd.show();
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        pd.setContentView(progress);
+                        try{
+                            Thread.sleep(2000);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        pd.dismiss();
                     }
-                }, 2000);
+                });
 
                 Intent photoCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(photoCaptureIntent, requestCode);

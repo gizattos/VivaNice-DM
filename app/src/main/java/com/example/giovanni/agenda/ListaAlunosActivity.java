@@ -38,6 +38,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     CallbackManager mCallbackManager;
+    ProgressDialog pd = new ProgressDialog(ListaAlunosActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +57,17 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 pd.setMessage("Carregando...");
                 pd.show();
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        pd.setContentView(progress);
+                        try{
+                            Thread.sleep(2000);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        pd.dismiss();
                     }
-                }, 2000);
+                });
                 login();
             }
         });
