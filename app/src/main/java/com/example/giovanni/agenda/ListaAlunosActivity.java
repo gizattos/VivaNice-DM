@@ -52,6 +52,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               /*
                 final ProgressDialog pd = new ProgressDialog(ListaAlunosActivity.this);
                 pd.setIndeterminate(true);
                 pd.setMessage("Carregando...");
@@ -68,6 +69,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
                         pd.dismiss();
                     }
                 });
+                */
                 login();
             }
         });

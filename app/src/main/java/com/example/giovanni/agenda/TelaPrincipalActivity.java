@@ -83,6 +83,8 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
+
                 final ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
                 pd.setIndeterminate(true);
                 pd.setMessage("Carregando...");
@@ -99,7 +101,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                         pd.dismiss();
                     }
                 });
-
+*/
                 gravar();
             }
         });
@@ -108,6 +110,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 final ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
                 pd.setIndeterminate(true);
                 pd.setMessage("Carregando...");
@@ -124,7 +127,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                         pd.dismiss();
                     }
                 });
-
+*/
                 auth.getInstance().signOut();
                 Intent i = new Intent(getApplicationContext(), ListaAlunosActivity.class);
                 startActivity(i);
@@ -134,6 +137,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 final ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
                 pd.setIndeterminate(true);
                 pd.setMessage("Carregando...");
@@ -150,7 +154,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                         pd.dismiss();
                     }
                 });
-
+*/
                 Intent it = new Intent(getApplicationContext(), mapas.class); // Intent it = new Intent(this, TelaPrincipalActivity.class); tive que coloacr a classe no primeiro this pq ela ta dentro do oncompletelistener
                 startActivity(it);
             }
@@ -176,6 +180,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         capturedImageButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 final ProgressDialog pd = new ProgressDialog(TelaPrincipalActivity.this);
                 pd.setIndeterminate(true);
                 pd.setMessage("Carregando...");
@@ -192,7 +197,7 @@ public class TelaPrincipalActivity extends AppCompatActivity {
                         pd.dismiss();
                     }
                 });
-
+*/
                 Intent photoCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(photoCaptureIntent, requestCode);
             }
