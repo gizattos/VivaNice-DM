@@ -55,7 +55,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(Cadastro.this, "funcionou",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplicationContext(), TelaPrincipalActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), ListaAlunosActivity.class);
                             intent.putExtra("nome", editLogin.getText().toString().trim());
                             startActivity(intent);
                         }else{
