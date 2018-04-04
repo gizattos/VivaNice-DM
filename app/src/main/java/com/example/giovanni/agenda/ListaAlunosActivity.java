@@ -18,6 +18,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -52,6 +53,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCallbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_lista_alunos);
         Button b = findViewById(R.id.btnLogin);
         Button b2 = findViewById(R.id.btn_forgot_password);
@@ -109,7 +111,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         //botao do facebook
 
-        mCallbackManager = CallbackManager.Factory.create();
         final LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList(EMAIL));
         loginButton.setReadPermissions("email", "public_profile");
