@@ -43,8 +43,28 @@ public class recycle extends AppCompatActivity {
 
         Aluno aluno1 = new Aluno("1234","COO","joão");
         Aluno aluno2 = new Aluno("666","CCO","pedro");
+        Aluno aluno3 = new Aluno("1522130010","CCO","Giovanni");
+        Aluno aluno4 = new Aluno("1522130004","CCO","Vitor");
+        Aluno aluno5 = new Aluno("1234","COO","joão");
+        Aluno aluno6 = new Aluno("666","CCO","pedro");
+        Aluno aluno7 = new Aluno("1522130010","CCO","Giovanni");
+        Aluno aluno8 = new Aluno("1522130004","CCO","Vitor");
+        Aluno aluno9 = new Aluno("1234","COO","joão");
+        Aluno aluno10 = new Aluno("666","CCO","pedro");
+        Aluno aluno11 = new Aluno("1522130010","CCO","Giovanni");
+        Aluno aluno12 = new Aluno("1522130004","CCO","Vitor");
         listaAlunos.add(aluno1);
         listaAlunos.add(aluno2);
+        listaAlunos.add(aluno3);
+        listaAlunos.add(aluno4);
+        listaAlunos.add(aluno5);
+        listaAlunos.add(aluno6);
+        listaAlunos.add(aluno7);
+        listaAlunos.add(aluno8);
+        listaAlunos.add(aluno9);
+        listaAlunos.add(aluno10);
+        listaAlunos.add(aluno11);
+        listaAlunos.add(aluno12);
 
 
 
