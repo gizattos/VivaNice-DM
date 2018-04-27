@@ -1,6 +1,7 @@
 package com.example.giovanni.agenda;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +56,7 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapas);
-
+        Button button4 = findViewById(R.id.button4);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
@@ -74,8 +76,19 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
 
         FirebaseUser teste = auth.getCurrentUser();
 
+// botao para teste recycleview
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(mapas.this, recycle.class);
+                startActivity(it);
+            }
+        });
 
 
+
+// fim botao teste recycleview
 
 
 
@@ -130,16 +143,18 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
 
         mMap = googleMap;
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        getLocation();
 
     }
 
     private void getLocation() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
             LocationListener locationListener = new LocationListener() {
                 public void onLocationChanged(Location location) {
                     LatLng me = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.addMarker(new MarkerOptions().position(me).title("Estou Aqui!!!"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 10));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 20));
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {

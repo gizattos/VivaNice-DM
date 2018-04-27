@@ -10,6 +10,8 @@
 
     <uses-feature android:name="android.hardware.location.gps" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/iconbig"
@@ -25,20 +27,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".TelaPrincipalActivity" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyC0unOz9AjQllGOcdc2iOjDcAksZMNPyM4" />
+            android:value="@string/CHAVE_MAPAS" />
 
         <activity
             android:name=".mapas"
             android:label="@string/title_activity_mapas"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EsqueceSenha"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <activity android:name=".EsqueceSenha" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -56,11 +61,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".Cadastro"></activity>
+        <activity android:name=".Cadastro" />
+        <activity android:name=".recycle"></activity>
     </application>
-
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
 
 </manifest>
