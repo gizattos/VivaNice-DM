@@ -289,10 +289,13 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         String uid = user.getUid();
 
         DatabaseReference alunos = database.getReference("/Alunos");
-        alunos.child(user.getUid()).child("nome").setValue(nome); // colocando valor dentro do child ele vai direto pro banco
+        alunos.child(user.getUid()).child("nome").setValue(nome);
+
         alunos.child(user.getUid()).child("dt_nasc").setValue(dataNasc);
+
         alunos.child(user.getUid()).child("sexo").setValue(sexo);
-        alunos.child(user.getUid()).child("tipo").setValue(tipo); // colocando valor dentro do child ele vai direto pro banco
+        alunos.child(user.getUid()).child("tipo").setValue(tipo);
+
         alunos.child(user.getUid()).child("CPF").setValue(CPF);
         alunos.child(user.getUid()).child("codmed").setValue(codmed);
 

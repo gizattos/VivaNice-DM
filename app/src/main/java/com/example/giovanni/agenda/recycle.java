@@ -7,25 +7,54 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 public class recycle extends AppCompatActivity {
 
-    public class Aluno{
-        public String matricula;
-        public String nome;
-        public String curso;
+    FirebaseDatabase database;
+    FirebaseAuth auth;
+    String nome;
+    String tipo;
+    String nascimento;
+    String[] testando = new String[10];
+    String[] testando2 = new String[10];
+    String[] testando3 = new String[10];
+    int v=0;
+    int s=0;
+    int f=0;
+    int contador=0;
 
-        public Aluno(String matricula, String curso, String nome){
-            this.matricula = matricula;
+
+
+    public class Aluno{
+        public String tipo;
+        public String nome;
+        public String nascimento;
+
+        public Aluno(String tipo,String nome,String nascimento){
+            this.tipo = tipo;
             this.nome = nome;
-            this.curso = curso;
+            this.nascimento = nascimento;
+
 
 
         }
@@ -41,30 +70,81 @@ public class recycle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycle);
 
-        Aluno aluno1 = new Aluno("1234","COO","joão");
-        Aluno aluno2 = new Aluno("666","CCO","pedro");
-        Aluno aluno3 = new Aluno("1522130010","CCO","Giovanni");
-        Aluno aluno4 = new Aluno("1522130004","CCO","Vitor");
-        Aluno aluno5 = new Aluno("1234","COO","joão");
-        Aluno aluno6 = new Aluno("666","CCO","pedro");
-        Aluno aluno7 = new Aluno("1522130010","CCO","Giovanni");
-        Aluno aluno8 = new Aluno("1522130004","CCO","Vitor");
-        Aluno aluno9 = new Aluno("1234","COO","joão");
-        Aluno aluno10 = new Aluno("666","CCO","pedro");
-        Aluno aluno11 = new Aluno("1522130010","CCO","Giovanni");
-        Aluno aluno12 = new Aluno("1522130004","CCO","Vitor");
-        listaAlunos.add(aluno1);
-        listaAlunos.add(aluno2);
-        listaAlunos.add(aluno3);
-        listaAlunos.add(aluno4);
-        listaAlunos.add(aluno5);
-        listaAlunos.add(aluno6);
-        listaAlunos.add(aluno7);
-        listaAlunos.add(aluno8);
-        listaAlunos.add(aluno9);
-        listaAlunos.add(aluno10);
-        listaAlunos.add(aluno11);
-        listaAlunos.add(aluno12);
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = auth.getCurrentUser();
+     //   DatabaseReference alunos = database.getReference("/Alunos");
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference alunos = rootRef.child("/Alunos");
+
+
+
+
+
+
+        alunos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                nascimento = snapshot.getValue().toString();
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                   testando3[f] = ds.child("dt_nasc").getValue(String.class);
+                    testando2[f] = ds.child("nome").getValue(String.class);
+                    testando[f] = ds.child("tipo").getValue(String.class);
+                    Log.d("TAG","o nome é" + testando3[f]);
+
+
+
+                    Aluno aluno1 = new Aluno(testando[f],testando2[f],testando3[f]);
+                    listaAlunos.add(aluno1);
+
+                    contador++;
+                    f++;
+                }
+
+
+
+
+                //Aluno aluno1 = new Aluno(testando[0],testando2[0],testando3[0]);
+               // listaAlunos.add(aluno1);
+               // Aluno aluno2 = new Aluno(testando[1],testando2[1],testando3[1]);
+              //  listaAlunos.add(aluno2);
+             //   Aluno aluno3 = new Aluno(testando[2],testando2[2],testando3[2]);
+            //    listaAlunos.add(aluno3);
+           //     Aluno aluno4 = new Aluno(testando[3],testando2[3],testando3[3]);
+          //      listaAlunos.add(aluno4);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
+        Collection allListObject = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            ArrayList<Integer> list = new ArrayList<Integer>();
+         /* operation with list */
+            list.add(i);
+            allListObject.add(list);
+        }
+
+        //iterate through the ArrayList values using Iterator's hasNext and next methods
+        for (Iterator it = allListObject.iterator(); it.hasNext();) {
+            System.out.println(it.next());
+        }
+
+
+        //Aluno aluno1 = new Aluno(tipo,nome,nascimento);
+      //  Aluno aluno1 = new Aluno(tipo,nome,nascimento);
+
+
+
+
+
+
 
 
 
@@ -115,9 +195,9 @@ public class recycle extends AppCompatActivity {
 
             Aluno a = listaAlunos.get(position);
 
-            holder.nome.setText(a.nome);
-            holder.matricula.setText(a.matricula);
-            holder.curso.setText(a.curso);
+            holder.nome.setText(a.tipo);
+            holder.matricula.setText(a.nome);
+            holder.curso.setText(a.nascimento);
 
         }
 

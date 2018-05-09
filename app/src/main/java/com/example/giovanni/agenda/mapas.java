@@ -46,6 +46,9 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
     FirebaseAuth auth;
     DatabaseReference rootRef,demoRef;
     TextView tipoValue;
+    String nome;
+    String tipo;
+    String nascimento;
 
     private GoogleMap mMap;
     LocationManager locationManager;
@@ -82,6 +85,8 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(mapas.this, recycle.class);
+
+
                 startActivity(it);
             }
         });
@@ -113,6 +118,7 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
             public void onDataChange(DataSnapshot snapshot) {
                 System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
                 demoValue.setText(snapshot.getValue().toString());
+                nome = snapshot.getValue().toString();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -124,6 +130,18 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
             public void onDataChange(DataSnapshot snapshot) {
                 System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
                 tipoValue.setText(snapshot.getValue().toString());
+                tipo = snapshot.getValue().toString();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        alunos.child(user.getUid()).child("dt_nasc").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                nascimento = snapshot.getValue().toString();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
