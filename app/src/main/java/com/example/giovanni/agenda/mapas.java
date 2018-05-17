@@ -171,6 +171,19 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
             LocationListener locationListener = new LocationListener() {
                 public void onLocationChanged(Location location) {
                     LatLng me = new LatLng(location.getLatitude(), location.getLongitude());
+
+                    FirebaseUser user = auth.getCurrentUser();
+
+
+
+                    DatabaseReference alunos = database.getReference("/Alunos");
+                    alunos.child(user.getUid()).child("latitude").setValue(location.getLatitude());
+                    alunos.child(user.getUid()).child("longitude").setValue(location.getLongitude());
+
+
+
+
+
                     mMap.addMarker(new MarkerOptions().position(me).title("Estou Aqui!!!"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(me, 20));
                 }
@@ -184,7 +197,7 @@ public class mapas extends AppCompatActivity implements OnMapReadyCallback {
                 public void onProviderDisabled(String provider) {
                 }
             };
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100000, 0, locationListener);
         } else {
             Toast.makeText(getApplicationContext(), "Negado", Toast.LENGTH_LONG).show();
         }

@@ -284,8 +284,8 @@ public class TelaPrincipalActivity extends AppCompatActivity {
 
         }
 
-
         FirebaseUser user = auth.getCurrentUser();
+
         String uid = user.getUid();
 
         DatabaseReference alunos = database.getReference("/Alunos");
