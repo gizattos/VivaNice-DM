@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-feature android:name="android.hardware.location.gps" />
 
@@ -62,7 +63,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Cadastro" />
-        <activity android:name=".recycle"></activity>
+        <activity android:name=".recycle" />
+        <activity android:name=".MsgBroad"></activity>
+        <receiver android:name=".AlertaNice" android:enabled="true" android:exported="false">   <intent-filter> <action android:name="android.intent.action.BOOT_COMPLETED" /> </intent-filter> </receiver>
     </application>
 
 </manifest>

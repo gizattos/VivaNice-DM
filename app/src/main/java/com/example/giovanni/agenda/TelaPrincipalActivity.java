@@ -23,8 +23,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class TelaPrincipalActivity extends AppCompatActivity {
@@ -203,19 +206,62 @@ public class TelaPrincipalActivity extends AppCompatActivity {
             }
         });
 
+        DatabaseReference alunos = database.getReference("/Alunos");
+        FirebaseUser user = auth.getCurrentUser();
+        alunos.child(user.getUid()).child("nome").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                edtNome.setText(snapshot.getValue().toString());
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        alunos.child(user.getUid()).child("dt_nasc").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                edtDatNas.setText(snapshot.getValue().toString());
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        alunos.child(user.getUid()).child("sexo").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                if ("Tipo".equals(snapshot.getValue().toString()))
+                edtSex.setSelection(0);
+                if ("Ajudante".equals(snapshot.getValue().toString()))
+                    edtSex.setSelection(1);
 
 
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        alunos.child(user.getUid()).child("tipo").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+                if ("Homem".equals(snapshot.getValue().toString()))
+                    edtSex.setSelection(0);
+                if ("Mulher".equals(snapshot.getValue().toString()))
+                    edtSex.setSelection(1);
 
-/*
 
-        if(edtTipo.getSelectedItem().toString().equals("Pessoa")){
-            edtIdentifica.setVisibility(View.INVISIBLE);
-
-        } if(edtTipo.getSelectedItem().toString().equals("Ajudante")){
-            edtIdentifica.setVisibility(View.VISIBLE);
-        }
-
-*/
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
 
         edtTipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
